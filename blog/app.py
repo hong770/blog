@@ -107,7 +107,7 @@ def init_db():
     if conn.execute("SELECT COUNT(*) AS c FROM albums").fetchone()["c"] == 0:
         conn.execute(
             "INSERT INTO albums(name, description) VALUES (?, ?)",
-            ("生活隨拍", "把日常的小片段收進相簿裡。"),
+            ("相片", "收藏。"),
         )
 
     if conn.execute("SELECT COUNT(*) AS c FROM posts").fetchone()["c"] == 0:
@@ -118,8 +118,8 @@ def init_db():
                (title, content, category_id, created_at, updated_at, is_published)
                VALUES (?, ?, ?, ?, ?, 1)""",
             (
-                "歡迎來到我的小站",
-                "這裡是一個簡單、安靜的小角落。\n\n可以寫日記、整理文章，也可以把照片放進相簿。",
+                "歡迎來到我的部落格",
+                "這裡是一個簡單、安靜的網站。\n\n可以寫日記、整理文章，也可以把照片放進相簿。",
                 cat["id"] if cat else None,
                 now,
                 now,
