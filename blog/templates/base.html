@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}我的小站{% endblock %}</title>
+  <title>{% block title %}我的部落格{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
       <div>
-        <a class="brand" href="{{ url_for('index') }}">我的小站</a>
-        <p class="tagline">把日常，好好收藏。</p>
+        <a class="brand" href="{{ url_for('index') }}">我的部落格</a>
+        <p class="tagline">不定時會在這分享紀錄。</p>
       </div>
       <nav class="top-nav">
         <a href="{{ url_for('index') }}">首頁</a>
