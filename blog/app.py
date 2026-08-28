@@ -100,13 +100,13 @@ def init_db():
     if conn.execute("SELECT COUNT(*) AS c FROM categories").fetchone()["c"] == 0:
         conn.executemany(
             "INSERT INTO categories(name) VALUES (?)",
-            [("亂寫",), ("紀錄",), ("心情",)],
+            [ ("紀錄",), ("心情",)],
         )
 
     if conn.execute("SELECT COUNT(*) AS c FROM albums").fetchone()["c"] == 0:
         conn.execute(
             "INSERT INTO albums(name, description) VALUES (?, ?)",
-            ("隨便放", "相簿。"),
+            ("相簿。"),
         )
 
     if conn.execute("SELECT COUNT(*) AS c FROM posts").fetchone()["c"] == 0:
@@ -116,13 +116,6 @@ def init_db():
             """INSERT INTO posts
                (title, content, category_id, created_at, updated_at, is_published)
                VALUES (?, ?, ?, ?, ?, 1)""",
-            (
-                "歡迎來到我的部落格",
-                "這裡是一個簡單、安靜的網站。\n\n可以寫日記、整理文章，也可以把照片放進相簿。",
-                cat["id"] if cat else None,
-                now,
-                now,
-            ),
         )
 
     conn.commit()
