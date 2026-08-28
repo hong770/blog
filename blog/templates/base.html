@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}我的小站{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div>
+        <a class="brand" href="{{ url_for('index') }}">我的小站</a>
+        <p class="tagline">把日常，好好收藏。</p>
+      </div>
+      <nav class="top-nav">
+        <a href="{{ url_for('index') }}">首頁</a>
+        <a href="{{ url_for('archive') }}">文章索引</a>
+        <a href="{{ url_for('albums') }}">相簿</a>
+        {% if session.get('admin_id') %}
+          <a href="{{ url_for('admin_dashboard') }}">管理</a>
+          <a href="{{ url_for('logout') }}">登出</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">管理員登入</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap shell">
+    <main class="content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <aside class="sidebar">
+      <section class="side-card profile">
+        <div class="avatar">W</div>
+        <h3>站長的小角落</h3>
+        <p>簡單寫字、記錄生活，也把喜歡的照片留下來。</p>
+      </section>
+
+      <section class="side-card">
+        <h3>文章分類</h3>
+        <ul class="clean-list">
+          {% for c in nav_categories %}
+            <li><a href="{{ url_for('category_view', category_id=c.id) }}">{{ c.name }}</a><span>{{ c.post_count }}</span></li>
+          {% else %}
+            <li class="muted">尚無分類</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section class="side-card">
+        <h3>相簿分類</h3>
+        <ul class="clean-list">
+          {% for a in nav_albums %}
+            <li><a href="{{ url_for('album_detail', album_id=a.id) }}">{{ a.name }}</a><span>{{ a.photo_count }}</span></li>
+          {% else %}
+            <li class="muted">尚無相簿</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">© {{ current_year }} 我的小站 · 簡約復古個人部落格</div>
+  </footer>
+</body>
+</html>

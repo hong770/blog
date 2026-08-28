@@ -1,0 +1,35 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ '編輯文章' if post else '新增文章' }}｜我的小站{% endblock %}
+{% block admin_title %}{{ '編輯文章' if post else '新增文章' }}{% endblock %}
+{% block admin_content %}
+<section class="admin-panel">
+  <form method="post" class="editor-form">
+    <label>文章標題
+      <input name="title" value="{{ post.title if post else '' }}" required>
+    </label>
+
+    <label>文章分類
+      <select name="category_id">
+        <option value="">未分類</option>
+        {% for c in categories %}
+          <option value="{{ c.id }}" {% if post and post.category_id == c.id %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>文章內容
+      <textarea name="content" rows="18" required>{{ post.content if post else '' }}</textarea>
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" name="is_published" {% if not post or post.is_published %}checked{% endif %}>
+      直接發佈
+    </label>
+
+    <div class="form-actions">
+      <button class="button" type="submit">{{ '儲存修改' if post else '發表文章' }}</button>
+      <a class="button secondary" href="{{ url_for('admin_posts') }}">取消</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

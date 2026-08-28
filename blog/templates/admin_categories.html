@@ -1,0 +1,24 @@
+{% extends "admin_base.html" %}
+{% block title %}文章分類｜我的小站{% endblock %}
+{% block admin_title %}文章分類{% endblock %}
+{% block admin_content %}
+<section class="admin-panel">
+  <form method="post" class="inline-form">
+    <input name="name" placeholder="例如：旅行、日記、工作" required>
+    <button class="button" type="submit">新增分類</button>
+  </form>
+</section>
+
+<section class="admin-panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>分類名稱</th><th>文章數</th></tr></thead>
+      <tbody>
+      {% for c in categories %}
+        <tr><td>{{ c.name }}</td><td>{{ c.post_count }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

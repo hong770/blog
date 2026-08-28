@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}相簿｜我的小站{% endblock %}
+{% block content %}
+<div class="page-head">
+  <p class="eyebrow">PHOTO ALBUM</p>
+  <h1>相簿</h1>
+  <p>把散落的照片，整理成一頁一頁的回憶。</p>
+</div>
+
+<div class="album-grid">
+  {% for album in albums %}
+    <a class="album-card" href="{{ url_for('album_detail', album_id=album.id) }}">
+      <div class="album-cover">
+        {% if album.cover %}
+          <img src="{{ url_for('static', filename='uploads/' ~ album.cover) }}" alt="{{ album.name }}">
+        {% else %}
+          <div class="album-placeholder">PHOTO</div>
+        {% endif %}
+      </div>
+      <div class="album-info">
+        <h3>{{ album.name }}</h3>
+        <p>{{ album.description or '沒有描述。' }}</p>
+        <span>{{ album.photo_count }} 張照片</span>
+      </div>
+    </a>
+  {% else %}
+    <div class="empty">目前還沒有相簿。</div>
+  {% endfor %}
+</div>
+{% endblock %}

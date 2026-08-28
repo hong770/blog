@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}找不到頁面｜我的小站{% endblock %}
+{% block content %}
+<div class="empty big">
+  <div class="error-code">404</div>
+  <h1>這一頁好像搬家了。</h1>
+  <p><a class="text-link" href="{{ url_for('index') }}">回到首頁 →</a></p>
+</div>
+{% endblock %}

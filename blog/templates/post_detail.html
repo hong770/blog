@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}｜我的小站{% endblock %}
+{% block content %}
+<article class="article">
+  <div class="post-meta">
+    <span>{{ post.created_at }}</span>
+    {% if post.category_name %}
+      <span>／</span>
+      <a href="{{ url_for('category_view', category_id=post.category_id) }}">{{ post.category_name }}</a>
+    {% endif %}
+  </div>
+  <h1>{{ post.title }}</h1>
+  <div class="article-body">{{ post.content }}</div>
+  {% if session.get('admin_id') %}
+    <div class="admin-inline">
+      <a class="button secondary" href="{{ url_for('admin_post_edit', post_id=post.id) }}">編輯這篇文章</a>
+    </div>
+  {% endif %}
+</article>
+{% endblock %}

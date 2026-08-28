@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ album.name }}｜相簿{% endblock %}
+{% block content %}
+<div class="page-head">
+  <p class="eyebrow">ALBUM</p>
+  <h1>{{ album.name }}</h1>
+  <p>{{ album.description }}</p>
+</div>
+
+<div class="photo-grid">
+  {% for photo in photos %}
+    <figure class="photo-card">
+      <a href="{{ url_for('static', filename='uploads/' ~ photo.filename) }}" target="_blank">
+        <img src="{{ url_for('static', filename='uploads/' ~ photo.filename) }}" alt="{{ photo.caption or photo.original_name }}">
+      </a>
+      <figcaption>
+        <span>{{ photo.caption or photo.original_name }}</span>
+        <small>{{ photo.created_at[:10] }}</small>
+      </figcaption>
+    </figure>
+  {% else %}
+    <div class="empty">這本相簿還沒有照片。</div>
+  {% endfor %}
+</div>
+
+{% include "_pagination.html" %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }}｜我的小站{% endblock %}
+{% block content %}
+<div class="page-head">
+  <p class="eyebrow">CATEGORY</p>
+  <h1>{{ category.name }}</h1>
+</div>
+
+{% for post in posts %}
+  <article class="post-card compact">
+    <div class="post-meta">{{ post.created_at }}</div>
+    <h2><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h2>
+    <p>{{ post.content[:160] }}{% if post.content|length > 160 %}…{% endif %}</p>
+  </article>
+{% else %}
+  <div class="empty">這個分類目前沒有文章。</div>
+{% endfor %}
+
+{% include "_pagination.html" %}
+{% endblock %}

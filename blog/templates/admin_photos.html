@@ -1,0 +1,47 @@
+{% extends "admin_base.html" %}
+{% block title %}照片管理｜我的小站{% endblock %}
+{% block admin_title %}照片上傳{% endblock %}
+{% block admin_content %}
+<section class="admin-panel">
+  <form method="post" enctype="multipart/form-data" class="form-stack">
+    <label>選擇相簿分類
+      <select name="album_id" required>
+        <option value="">請選擇</option>
+        {% for a in albums %}
+          <option value="{{ a.id }}">{{ a.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>選擇照片
+      <input type="file" name="photos" accept=".png,.jpg,.jpeg,.gif,.webp" multiple required>
+    </label>
+
+    <label>照片說明（這次上傳共用）
+      <input name="caption" placeholder="可留白">
+    </label>
+
+    <button class="button" type="submit">上傳照片</button>
+  </form>
+</section>
+
+<section class="admin-panel">
+  <div class="panel-head"><h2>最近上傳</h2></div>
+  <div class="admin-photo-grid">
+    {% for photo in photos %}
+      <div class="admin-photo">
+        <img src="{{ url_for('static', filename='uploads/' ~ photo.filename) }}" alt="">
+        <div>
+          <strong>{{ photo.album_name }}</strong>
+          <p>{{ photo.caption or photo.original_name }}</p>
+          <form method="post" action="{{ url_for('admin_photo_delete', photo_id=photo.id) }}" onsubmit="return confirm('確定刪除這張照片？');">
+            <button class="link-danger" type="submit">刪除</button>
+          </form>
+        </div>
+      </div>
+    {% else %}
+      <div class="empty">尚未上傳照片。</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

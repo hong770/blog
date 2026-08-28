@@ -1,0 +1,33 @@
+{% extends "admin_base.html" %}
+{% block title %}文章管理｜我的小站{% endblock %}
+{% block admin_title %}文章管理{% endblock %}
+{% block admin_content %}
+<div class="panel-actions">
+  <a class="button" href="{{ url_for('admin_post_new') }}">＋ 新增文章</a>
+</div>
+<section class="admin-panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>標題</th><th>分類</th><th>狀態</th><th>建立時間</th><th>操作</th></tr></thead>
+      <tbody>
+      {% for post in posts %}
+        <tr>
+          <td>{{ post.title }}</td>
+          <td>{{ post.category_name or '未分類' }}</td>
+          <td><span class="badge">{{ '已發佈' if post.is_published else '草稿' }}</span></td>
+          <td>{{ post.created_at }}</td>
+          <td class="actions">
+            <a href="{{ url_for('admin_post_edit', post_id=post.id) }}">編輯</a>
+            <form method="post" action="{{ url_for('admin_post_delete', post_id=post.id) }}" onsubmit="return confirm('確定刪除這篇文章？');">
+              <button class="link-danger" type="submit">刪除</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5">尚無文章。</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

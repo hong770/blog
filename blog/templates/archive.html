@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}文章索引｜我的小站{% endblock %}
+{% block content %}
+<div class="page-head">
+  <p class="eyebrow">ARCHIVE</p>
+  <h1>文章索引</h1>
+  <p>照時間排好的文字目錄。</p>
+</div>
+<div class="archive-list">
+  {% for post in posts %}
+    <a href="{{ url_for('post_detail', post_id=post.id) }}" class="archive-row">
+      <span class="archive-date">{{ post.created_at[:10] }}</span>
+      <span class="archive-title">{{ post.title }}</span>
+      <span class="archive-cat">{{ post.category_name or '未分類' }}</span>
+    </a>
+  {% else %}
+    <div class="empty">目前沒有文章。</div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}我的小站{% endblock %}
+{% block content %}
+  <section class="hero">
+    <p class="eyebrow">MY LITTLE SPACE</p>
+    <h1>今天，也寫下一點生活。</h1>
+    <p>沒有演算法，只有照時間慢慢堆起來的文章和照片。</p>
+  </section>
+
+  {% for post in posts %}
+    <article class="post-card">
+      <div class="post-meta">
+        <span>{{ post.created_at }}</span>
+        {% if post.category_name %}
+          <span>／</span>
+          <a href="{{ url_for('category_view', category_id=post.category_id) }}">{{ post.category_name }}</a>
+        {% endif %}
+      </div>
+      <h2><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h2>
+      <p>{{ post.content[:180] }}{% if post.content|length > 180 %}…{% endif %}</p>
+      <a class="text-link" href="{{ url_for('post_detail', post_id=post.id) }}">繼續閱讀 →</a>
+    </article>
+  {% else %}
+    <div class="empty">目前還沒有文章。</div>
+  {% endfor %}
+
+  {% include "_pagination.html" %}
+{% endblock %}

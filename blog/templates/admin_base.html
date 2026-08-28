@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-wrap">
+  <div class="admin-top">
+    <div>
+      <p class="eyebrow">CONTROL PANEL</p>
+      <h1>{% block admin_title %}管理後台{% endblock %}</h1>
+    </div>
+    <a class="button secondary" href="{{ url_for('index') }}">查看前台</a>
+  </div>
+
+  <nav class="admin-nav">
+    <a href="{{ url_for('admin_dashboard') }}">總覽</a>
+    <a href="{{ url_for('admin_posts') }}">文章</a>
+    <a href="{{ url_for('admin_post_new') }}">新增文章</a>
+    <a href="{{ url_for('admin_categories') }}">文章分類</a>
+    <a href="{{ url_for('admin_albums') }}">相簿分類</a>
+    <a href="{{ url_for('admin_photos') }}">照片上傳</a>
+  </nav>
+
+  {% block admin_content %}{% endblock %}
+</div>
+{% endblock %}

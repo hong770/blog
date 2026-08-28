@@ -1,0 +1,34 @@
+{% extends "admin_base.html" %}
+{% block title %}相簿分類｜我的小站{% endblock %}
+{% block admin_title %}相簿分類{% endblock %}
+{% block admin_content %}
+<section class="admin-panel">
+  <form method="post" class="form-stack">
+    <label>相簿名稱
+      <input name="name" placeholder="例如：2026 夏天" required>
+    </label>
+    <label>相簿描述
+      <input name="description" placeholder="簡短描述這本相簿">
+    </label>
+    <button class="button" type="submit">建立相簿分類</button>
+  </form>
+</section>
+
+<section class="admin-panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>相簿</th><th>描述</th><th>照片數</th><th></th></tr></thead>
+      <tbody>
+      {% for a in albums %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td>{{ a.description or '—' }}</td>
+          <td>{{ a.photo_count }}</td>
+          <td><a href="{{ url_for('album_detail', album_id=a.id) }}">查看</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
