@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}我的部落格{% endblock %}</title>
+  <title>{% block title %}我的小站{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
       <div>
-        <a class="brand" href="{{ url_for('index') }}">我的部落格</a>
-        <p class="tagline">不定時會在這分享紀錄。</p>
+        <a class="brand" href="{{ url_for('index') }}">我的小站</a>
+        <p class="tagline">把日常，好好收藏。</p>
       </div>
       <nav class="top-nav">
         <a href="{{ url_for('index') }}">首頁</a>
@@ -41,9 +41,13 @@
 
     <aside class="sidebar">
       <section class="side-card profile">
-        <div class="avatar">W</div>
-        <h3>小角落</h3>
-        <p>簡單記錄，也把喜歡的照片留下來。</p>
+        {% if site_avatar %}
+          <img class="avatar avatar-image" src="{{ url_for('static', filename='uploads/avatars/' ~ site_avatar) }}" alt="站長大頭貼">
+        {% else %}
+          <div class="avatar">W</div>
+        {% endif %}
+        <h3>站長的小角落</h3>
+        <p>簡單寫字、記錄生活，也把喜歡的照片留下來。</p>
       </section>
 
       <section class="side-card">
@@ -71,7 +75,7 @@
   </div>
 
   <footer class="site-footer">
-    <div class="wrap">© {{ current_year }} 我的個人部落格</div>
+    <div class="wrap">© {{ current_year }} 我的小站 · 簡約復古個人部落格</div>
   </footer>
 </body>
 </html>

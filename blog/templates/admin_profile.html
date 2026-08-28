@@ -1,0 +1,36 @@
+{% extends "admin_base.html" %}
+{% block title %}大頭貼設定｜我的小站{% endblock %}
+{% block admin_title %}大頭貼設定{% endblock %}
+{% block admin_content %}
+<section class="admin-panel avatar-settings">
+  <div class="avatar-settings-grid">
+    <div class="avatar-preview-box">
+      <p class="avatar-settings-label">目前大頭貼</p>
+      {% if current_avatar %}
+        <img class="avatar-preview" src="{{ url_for('static', filename='uploads/avatars/' ~ current_avatar) }}" alt="目前大頭貼">
+      {% else %}
+        <div class="avatar-preview avatar-preview-default">W</div>
+      {% endif %}
+      <p class="muted">前台右側「站長的小角落」會使用這張圖片。</p>
+    </div>
+
+    <div>
+      <form method="post" enctype="multipart/form-data" class="form-stack avatar-upload-form">
+        <label>選擇新的大頭貼
+          <input type="file" name="avatar" accept=".png,.jpg,.jpeg,.gif,.webp" required>
+        </label>
+        <p class="avatar-help">建議使用正方形圖片。PNG、JPG、JPEG、GIF、WEBP 均可。</p>
+        <input type="hidden" name="action" value="upload">
+        <button class="button" type="submit">更換大頭貼</button>
+      </form>
+
+      {% if current_avatar %}
+        <form method="post" class="avatar-remove-form" onsubmit="return confirm('確定要移除目前的大頭貼？');">
+          <input type="hidden" name="action" value="remove">
+          <button class="link-danger" type="submit">移除大頭貼，恢復預設 W</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
